@@ -3,37 +3,33 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mcallejo <mcallejo@student.42barcelona.    +#+  +:+       +#+         #
+#    By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 18:21:28 by mcallejo          #+#    #+#              #
-#    Updated: 2023/10/20 21:58:53 by mcallejo         ###   ########.fr        #
+#    Updated: 2023/10/24 16:46:50 by mcallejo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libprintf.a
+NAME = libftprintf.a
 
-SOURCES = ft_printf.c ft_printstr.c ft_putcharcounter.c ft_print_int.c \
-	ft_print_unsigned.c
+SOURCES = ft_printf.c ft_print_str.c ft_print_char.c ft_print_int.c \
+	ft_print_unsigned.c ft_print_hex.c ft_print_upphex.c ft_print_pointer.c
 
-INCLUDE = libprintft.h
+INCLUDE = ft_printf.h
 
-#crea los archivos .o
 OBJECTS = $(SOURCES:.c=.o)
 
 CFLAGS = -Wall -Werror -Wextra 
 
-#objetivo para hacer doc de la libreria
 all: $(NAME)
 
 CC = gcc
 
-#compila los .c
-%.o: %.c Makefile libprintf.h
-	$(CC) -c $(CFLAGS) -I ./ -c $< -o $@ 
+%.o: %.c Makefile ft_printf.h
+	$(CC) $(CFLAGS) -c $< -o $@ 
 
-#crea el archivo de la librería
 $(NAME): $(OBJECTS)
-	$(AR) -r $@ $? 
+	ar rcs $@ $? 
 
 clean:
 	rm -f $(OBJECTS) 

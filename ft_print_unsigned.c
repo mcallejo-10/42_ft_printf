@@ -3,48 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcallejo <mcallejo@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/20 21:54:39 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/10/20 22:07:52 by mcallejo         ###   ########.fr       */
+/*   Created: 2023/10/23 16:59:28 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/10/25 17:24:06 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libprintf.h"
+#include "ft_printf.h"
 
-static int	ft_nlen(int n)
+int	ft_print_unsigned(int count, unsigned int u)
 {
-	int					nlen;
-	long long int		ntemp;
-
-	ntemp = (long long int)n;
-	nlen = 0;
-	if (n == 0)
-		return (1);
-	if (ntemp < 0)
-	{
-		ntemp = ntemp * -1;
-		nlen++;
-	}
-	while (ntemp > 0)
-	{
-		ntemp = ntemp / 10;
-		nlen++;
-	}
-	return (nlen);
-}
-int	ft_print_unsigned(unsigned int u)
-{
-	int			j;
-
-	j = 0;
 	if (u > 9)
-	{
-		ft_print_unsigned(u / 10);
-		ft_putcharcounter(u % 10 + '0');
-		j++;
-	}
-	else if (u < 10)
-		ft_putcharcounter(u + '0');
-	return (ft_nlen(u));
+		count = ft_print_unsigned(count, u / 10);
+	if (count == -1)
+		return (-1);
+	count += ft_print_char(u % 10 + '0');
+	return (count);
 }

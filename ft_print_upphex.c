@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_int.c                                     :+:      :+:    :+:   */
+/*   ft_print_upphex.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcallejo <mcallejo@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 16:58:40 by mcallejo          #+#    #+#             */
-/*   Updated: 2023/10/25 17:26:45 by mcallejo         ###   ########.fr       */
+/*   Created: 2023/10/23 19:51:58 by mcallejo          #+#    #+#             */
+/*   Updated: 2023/10/25 17:27:11 by mcallejo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_print_int(int count, int di)
+int	ft_print_upphex(int count, unsigned int x)
 {
-	long int	nlong;
+	char	*base;
 
-	nlong = (long int)di;
-	if (di < 0)
-	{
-		nlong = nlong * -1;
-		if ((ft_print_char('-')) == -1)
-			return (-1);
-		count += 1;
-	}
-	if (nlong > 9)
-	{
-		count = ft_print_int(count, nlong / 10);
-		if (count == -1)
-			return (-1);
-		count += ft_print_char(nlong % 10 + '0');
-	}
-	else if (nlong < 10)
-		count += ft_print_char(nlong + '0');
+	base = "0123456789ABCDEF";
+	if (x >= 16)
+		count = ft_print_upphex(count, x / 16);
+	if (count == -1)
+		return (-1);
+	count += ft_print_char(base[x % 16]);
 	return (count);
 }
